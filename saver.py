@@ -59,3 +59,26 @@ class JSONSaver(Saver):
                                       i['experience'],
                                       i['url']))
         return result
+
+    def get_vacancies_by_min_salary(self, value: int):
+        return self.__get_vacancies_by_criterion('salary_from', int(value))
+
+    def get_vacancies_by_max_salary(self, value: int):
+        return self.__get_vacancies_by_criterion('salary_to', int(value))
+
+    def get_vacancies_by_area(self, value):
+        return self.__get_vacancies_by_criterion('area', value)
+
+    def get_vacancies_by_experience(self, value):
+        return self.__get_vacancies_by_criterion('experience', value)
+
+    def get_vacancies_by_name(self, value):
+        return self.__get_vacancies_by_criterion('name', value)
+
+    def sort_vacancies_by_max_salary(self, number):
+        vacancies = self.json_to_vacancy_class()
+        vacancies = sorted(vacancies, reverse=True)
+        return vacancies[:number]
+
+    def delete_vacancy(self, vacancy: Vacancy):
+        pass
