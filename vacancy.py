@@ -1,11 +1,10 @@
 class Vacancy:
     """
-    Класс для работы с вакансиями. В этом классе самостоятельно определить атрибуты,
-    такие как название вакансии, ссылка на вакансию, зарплата, краткое описание или требования.
-    Класс должен поддерживать методы сравнения вакансий между собой по зарплате и валидировать данные,
+    Класс для работы с вакансиями.
+    Класс поддерживает методы сравнения вакансий между собой по зарплате и валидирует данные,
     которыми инициализируются его атрибуты.
     """
-    def __init__(self, name, area, salary_from, salary_to, currency, experience, url):
+    def __init__(self, name: str, area: str, salary_from: int, salary_to: int, currency: str, experience: str, url: str):
         self.name = name
         self.area = area
         self.salary_from = salary_from
@@ -16,8 +15,10 @@ class Vacancy:
 
     @property
     def salary(self):
+
         if self.salary_to is None and self.salary_from is None:
             return 'Не указано'
+
         salary_from = self.salary_from if self.salary_from else None
         salary_to = self.salary_to if self.salary_to else None
         currency = self.currency if self.currency else None
