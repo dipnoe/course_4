@@ -1,4 +1,4 @@
-from api import HeadHunterAPI, SuperJobAPI
+from code.api import HeadHunterAPI, SuperJobAPI
 from saver import JSONSaver
 
 
