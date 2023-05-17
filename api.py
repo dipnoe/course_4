@@ -60,6 +60,9 @@ class HeadHunterAPI(API):
         return hh_experience[vac]
 
     def get_formatted_vacancies(self):
+        """
+        Получение некоторых полей вакансий
+        """
         formatted_vacancies = []
         for vac in self.vacancies:
             formatted_vacancies.append({
