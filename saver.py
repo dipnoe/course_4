@@ -6,12 +6,16 @@ from vacancy import Vacancy
 
 class Saver(ABC):
     """
-    Определить абстрактный класс, который обязывает реализовать методы для добавления вакансий в файл,
+    Абстрактный класс, который обязывает реализовать методы для добавления вакансий в файл,
     получения данных из файла по указанным критериям и удаления информации о вакансиях.
     """
 
     @abstractmethod
     def add_vacancies_to_json(self, vacancy: Vacancy):
+        pass
+
+    @abstractmethod
+    def __get_vacancies_by_criterion(self, criterion: str, value):
         pass
 
     @abstractmethod
@@ -61,21 +65,39 @@ class JSONSaver(Saver):
         return result
 
     def get_vacancies_by_min_salary(self, value: int):
+        """
+        Фильтрация запроса по минимальной зарплате
+        """
         return self.__get_vacancies_by_criterion('salary_from', int(value))
 
     def get_vacancies_by_max_salary(self, value: int):
+        """
+        Фильтрация запроса по максимальной зарплате
+        """
         return self.__get_vacancies_by_criterion('salary_to', int(value))
 
     def get_vacancies_by_area(self, value):
+        """
+        Фильтрация запроса по городу
+        """
         return self.__get_vacancies_by_criterion('area', value)
 
     def get_vacancies_by_experience(self, value):
+        """
+        Фильтрация запроса по опыту работы
+        """
         return self.__get_vacancies_by_criterion('experience', value)
 
     def get_vacancies_by_name(self, value):
+        """
+        Фильтрация запроса по названию вакансии
+        """
         return self.__get_vacancies_by_criterion('name', value)
 
     def sort_vacancies_by_max_salary(self, number):
+        """
+        Сортировка вакансий по максимальной зарплате (от большего к меньшему)
+        """
         vacancies = self.json_to_vacancy_class()
         vacancies = sorted(vacancies, reverse=True)
         return vacancies[:number]
