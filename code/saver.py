@@ -5,6 +5,9 @@ from vacancy import Vacancy
 
 
 class VacancyEncoder(json.JSONEncoder):
+    """
+    Класс для сериализации объектов класса Vacancy
+    """
     def default(self, obj):
         if isinstance(obj, Vacancy):
             return obj.__repr__()
@@ -30,15 +33,16 @@ class JSONSaver(Saver):
     """
     Класс для сохранения информации о вакансиях в JSON-файл.
     """
-    JSON_FILE = 'vacancies.json'
+    def __init__(self, keyword_search):
+        self.keyword_search = f'{keyword_search}.json'
 
     def add_vacancies_to_json(self, vacancies: list):
-        with open(self.JSON_FILE, 'w+', encoding='utf-8') as file:
+        with open(self.keyword_search, 'w+', encoding='utf-8') as file:
             json.dump(vacancies, file, ensure_ascii=False, cls=VacancyEncoder)
 
     @property
     def data(self):
-        with open(self.JSON_FILE, 'r', encoding='utf-8') as file:
+        with open(self.keyword_search, 'r', encoding='utf-8') as file:
             data = json.load(file)
         return data
 
