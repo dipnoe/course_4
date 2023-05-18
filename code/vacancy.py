@@ -37,6 +37,9 @@ class Vacancy:
                f'Ссылка на вакансию: {self.url}\n\n'
 
     def __lt__(self, other):
+        """
+        Метод для сравнения вакансий по зарплате
+        """
         if isinstance(other, Vacancy):
             if not self.salary_from:
                 return True
