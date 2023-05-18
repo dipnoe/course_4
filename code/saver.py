@@ -15,10 +15,6 @@ class Saver(ABC):
         pass
 
     @abstractmethod
-    def __get_vacancies_by_criterion(self, criterion: str, value):
-        pass
-
-    @abstractmethod
     def delete_vacancy(self, vacancy: Vacancy):
         pass
 
@@ -103,4 +99,8 @@ class JSONSaver(Saver):
         return vacancies[:number]
 
     def delete_vacancy(self, vacancy: Vacancy):
-        pass
+        for idx, vacancy_dict in enumerate(self.data):
+            if vacancy_dict['url'] == vacancy.url:
+                self.data.pop(idx)
+                break
+        self.add_vacancies_to_json(self.data)
