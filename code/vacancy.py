@@ -4,7 +4,9 @@ class Vacancy:
     Класс поддерживает методы сравнения вакансий между собой по зарплате и валидирует данные,
     которыми инициализируются его атрибуты.
     """
-    def __init__(self, name: str, area: str, salary_from: int, salary_to: int, currency: str, experience: str, url: str):
+
+    def __init__(self, name: str, area: str, salary_from: int, salary_to: int, currency: str, experience: str,
+                 url: str):
         self.name = name
         self.area = area
         self.salary_from = salary_from
@@ -46,3 +48,13 @@ class Vacancy:
             elif not other.salary_from:
                 return False
             return self.salary_from < other.salary_from
+
+    def __repr__(self):
+        return {'name': self.name,
+                'area': self.area,
+                'salary_from': self.salary_from,
+                'salary_to': self.salary_to,
+                'currency': self.currency,
+                'experience': self.experience,
+                'url': self.url
+                }
