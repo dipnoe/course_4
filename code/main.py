@@ -41,7 +41,8 @@ def user_interaction():
             input_value = input("Введите значение:\n>>> ").lower()
 
             if filter_word == '1':
-                for i in json_saver.get_vacancies_by_min_salary(int(input_value)):
+                filtered_vacancies = json_saver.get_vacancies_by_min_salary(int(input_value))
+                for i in filtered_vacancies:
                     print(i)
             elif filter_word == '2':
                 for i in json_saver.get_vacancies_by_max_salary(int(input_value)):
@@ -66,6 +67,10 @@ def user_interaction():
 
             else:
                 print('Некорректное значение')
+
+            user_save = input("Сохранить результаты в файл?(1 - да, 0 - выход)")
+            if user_save == '1':
+                json_saver.add_vacancies_to_json(filtered_vacancies)
 
 
 if __name__ == "__main__":
