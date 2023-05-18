@@ -1,4 +1,4 @@
-from code.api import HeadHunterAPI, SuperJobAPI
+from api import HeadHunterAPI, SuperJobAPI
 from saver import JSONSaver
 
 
@@ -32,12 +32,14 @@ def user_interaction():
 
         if show_user == '2':
             filter_word = input("""Выберите фильтр:
-1 - по минимальной зарплате
-2 - по максимальной зарплате
-3 - по городу
-4 - по опыту('Возможные значения: 1 — без опыта, 2 — от 1 года, 3 — от 3 лет, 4 — от 6 лет')\n>>> """)
+1 - По минимальной зарплате
+2 - По максимальной зарплате
+3 - По городу
+4 - По опыту(Возможные значения: 1 — без опыта, 2 — от 1 года, 3 — от 3 лет, 4 — от 6 лет)
+5 - Вывести топ вакансий по зарплате\n>>> """)
 
             input_value = input("Введите значение:\n>>> ").lower()
+
             if filter_word == '1':
                 for i in json_saver.get_vacancies_by_min_salary(int(input_value)):
                     print(i)
@@ -55,6 +57,12 @@ def user_interaction():
                               }
                 for i in json_saver.get_vacancies_by_experience(experience[input_value]):
                     print(i)
+
+            elif filter_word == '5':
+                top_n = input("Введите количество вакансий для топа:\n>>> ")
+                if top_n.isdigit():
+                    for i in json_saver.sort_vacancies_by_max_salary(int(top_n)):
+                        print(i)
 
             else:
                 print('Некорректное значение')
