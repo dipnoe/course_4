@@ -4,6 +4,13 @@ from abc import ABC, abstractmethod
 from vacancy import Vacancy
 
 
+class VacancyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Vacancy):
+            return obj.__repr__()
+        return json.JSONEncoder.default(self, obj)
+
+
 class Saver(ABC):
     """
     Абстрактный класс, который обязывает реализовать методы для добавления вакансий в файл,
@@ -27,7 +34,7 @@ class JSONSaver(Saver):
 
     def add_vacancies_to_json(self, vacancies: list):
         with open(self.JSON_FILE, 'w+', encoding='utf-8') as file:
-            json.dump(vacancies, file, ensure_ascii=False)
+            json.dump(vacancies, file, ensure_ascii=False, cls=VacancyEncoder)
 
     @property
     def data(self):
